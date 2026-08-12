@@ -6,29 +6,32 @@ A high-performance, dark-mode focused corporate landing page and portal for Vesp
 
 ## Live System Overview (Dark & White Themes)
 
-![Vespera System Analysis](web1.png)
+![Vespera System Analysis](assets/img/web1.png)
 
-![Vespera System Analysis](web2.png)
+![Vespera System Analysis](assets/img/web2.png)
 
 ## Project Structure
 
-
-```
-
+```text
 vespera-burner-web/
 ├── .gitignore
 ├── LICENSE
 ├── README.md
 ├── arge.html
 ├── index.html
-├── logo.png
-├── logos.png
-├── miniicon.png
-├── miniiconsmaller.png
 ├── sirketler.html
-├── web1.png
-└── web2.png
-
+└── assets/
+    ├── css/
+    │   └── auth.css
+    ├── js/
+    │   └── auth.js
+    └── img/
+        ├── logo.png
+        ├── logos.png
+        ├── miniicon.png
+        ├── miniiconsmaller.png
+        ├── web1.png
+        └── web2.png
 ```
 
 ## Requirements
@@ -42,23 +45,23 @@ vespera-burner-web/
    ```bash
    git clone git@github.com:Vespera-Industries/vespera-burner-web.git
    cd vespera-burner-web
-
-
+   ```
 
 2. Serve locally (Optional):
-```bash
-python -m http.server 8000
+   ```bash
+   python3 -m http.server 8000
+   ```
 
-```
+## Features
 
-
+- **Authentication System**: Full client-side Sign-Up & Sign-In modal with session state persistence, password strength meter, profile dropdown, and bilingual support (TR / EN).
+- **Responsive Layout**: Designed for seamless display across all screen sizes (desktop, laptops, tablets, and mobile).
+- **Dark/Light Theme Switcher**: Dynamic CSS variables for instant theme toggling.
 
 ## License
 
-MIT License - see the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
+MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Live System Overview (Dark & White Themes)
-
-<p><img src="miniicon.png" width="35" height="35" align="absmiddle"> <em>made by <strong>trailheart</strong> with ❤️</em></p>
+<p><img src="assets/img/miniicon.png" width="35" height="35" align="absmiddle"> <em>made by <strong>trailheart</strong> with ❤️</em></p>
