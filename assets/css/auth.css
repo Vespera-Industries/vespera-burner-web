@@ -1,0 +1,499 @@
+/* ==========================================
+   VESPERA INDUSTRIES - AUTHENTICATION STYLES
+   ========================================== */
+
+/* Navbar Auth Button & User Profile Dropdown */
+.auth-nav-btn {
+    background: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(217, 4, 41, 0.3);
+}
+
+.auth-nav-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(217, 4, 41, 0.5);
+    opacity: 0.95;
+}
+
+.user-profile-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+.user-profile-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 5px 12px 5px 6px;
+    border-radius: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.user-profile-btn:hover {
+    border-color: var(--primary-color);
+}
+
+.user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.user-name {
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    width: 240px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    display: none;
+    flex-direction: column;
+    z-index: 1100;
+    overflow: hidden;
+    animation: fadeInDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.user-dropdown.open {
+    display: flex;
+}
+
+.user-dropdown-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.user-dropdown-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.user-dropdown-email {
+    font-size: 12px;
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-dropdown-dept {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 10.5px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: rgba(255, 77, 77, 0.15);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.user-dropdown-menu {
+    padding: 6px 0;
+}
+
+.user-dropdown-item {
+    padding: 10px 16px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+.user-dropdown-item:hover {
+    background-color: rgba(255, 77, 77, 0.1);
+    color: var(--primary-color);
+}
+
+.user-dropdown-item.logout {
+    color: #ff4d4d;
+    border-top: 1px solid var(--border-color);
+}
+
+/* ==========================================
+   AUTH MODAL DIALOG
+   ========================================== */
+.auth-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    padding: 16px;
+}
+
+.auth-modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.auth-modal-container {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    width: 100%;
+    max-width: 440px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    transform: scale(0.95) translateY(10px);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.auth-modal-overlay.open .auth-modal-container {
+    transform: scale(1) translateY(0);
+}
+
+/* Modal Header & Tabs */
+.auth-modal-header {
+    padding: 24px 24px 0 24px;
+    position: relative;
+}
+
+.auth-modal-close {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 20px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.auth-modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+}
+
+.auth-brand-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.auth-brand-logo {
+    height: 32px;
+    width: auto;
+}
+
+.auth-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-top: 12px;
+}
+
+.auth-tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 12px 0;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.auth-tab-btn.active {
+    color: var(--primary-color);
+}
+
+.auth-tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+/* Modal Content & Forms */
+.auth-modal-body {
+    padding: 24px;
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
+.auth-form {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.auth-form.active {
+    display: flex;
+}
+
+.auth-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.auth-form-group label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon input,
+.auth-form-group select {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-with-icon input {
+    padding-right: 40px;
+}
+
+.input-with-icon input:focus,
+.auth-form-group select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.15);
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password-btn:hover {
+    color: var(--text-main);
+}
+
+/* Password Strength Bar */
+.password-strength-container {
+    margin-top: 4px;
+}
+
+.strength-bar-bg {
+    height: 4px;
+    width: 100%;
+    background: var(--border-color);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.strength-bar-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.strength-text {
+    font-size: 11px;
+    margin-top: 4px;
+    color: var(--text-muted);
+}
+
+.auth-form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.forgot-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.auth-submit-btn {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+    margin-top: 6px;
+    box-shadow: 0 4px 12px rgba(217, 4, 41, 0.3);
+}
+
+.auth-submit-btn:hover {
+    opacity: 0.92;
+}
+
+.auth-submit-btn:active {
+    transform: scale(0.98);
+}
+
+/* Alert Messages inside Modal */
+.auth-alert {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-alert.error {
+    display: flex;
+    background-color: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+.auth-alert.success {
+    display: flex;
+    background-color: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #22c55e;
+}
+
+/* ==========================================
+   TOAST NOTIFICATIONS
+   ========================================== */
+#vespera-toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 3000;
+    pointer-events: none;
+}
+
+.vespera-toast {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 12px 18px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    font-size: 13.5px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateX(120%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: auto;
+}
+
+.vespera-toast.show {
+    transform: translateX(0);
+}
+
+.vespera-toast.toast-success {
+    border-left: 4px solid #22c55e;
+}
+
+.vespera-toast.toast-error {
+    border-left: 4px solid #ef4444;
+}
+
+.vespera-toast.toast-info {
+    border-left: 4px solid var(--primary-color);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

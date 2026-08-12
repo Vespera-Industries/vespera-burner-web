@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vespera Industries Portal</title>
+    <meta name="google-site-verification" content="gRdOL5yG5Cpfkg6TqzwmdI74Hof5dh2c1cBEHOhXfYk" />
+    <script type="application/ld+json">
+    {
+     "@context": "https://schema.org",
+     "@type": "Organization",
+     "name": "Vespera Industries",
+     "url": "https://vesperaindustries.com",
+     "logo": "https://vesperaindustries.com/logos.png",
+     "sameAs": [
+     "https://github.com/orgs/Vespera-Industries"
+    ],
+     "contactPoint": {
+     "@type": "ContactPoint",
+     "email": "contact@vesperaindustries.com",
+     "contactType": "customer service",
+     "availableLanguage": ["Turkish", "English"]
+    },
+     "description": "Yazılım mimarileri, siber güvenlik, interaktif teknolojiler ve küresel filo lojistiğinde yüksek standartlı kurumsal çözümler."
+    }
+    </script>
+    <link rel="icon" type="image/png" href="assets/img/miniiconsmaller.png">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    <script>
+        // Sayfa çizilmeden ÖNCE temayı uygula (titremeyi önler)
+        (function () {
+            if (localStorage.getItem('vespera-theme') === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        /* Varsayılan Olarak %100 Karanlık Tema (GitHub Dark) */
+        :root {
+            --bg-body: #0d1117;
+            --bg-nav: #161b22;
+            --bg-hero: #161b22;
+            --bg-card: #21262d;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --border-color: #30363d;
+            --primary-color: #ff4d4d;
+            /* Parlak Kor Kırmızı */
+            --shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Yumuşatılmış Light Mode Kırmızı Tonları */
+        [data-theme="light"] {
+            --bg-body: #d8dce2;
+            --bg-nav: #e8ebf0;
+            --bg-hero: #cdd3dc;
+            --bg-card: #e8ebf0;
+            --text-main: #111827;
+            --text-muted: #374151;
+            --border-color: #b0b8c4;
+            --primary-color: #d90429;
+            /* Doymuş Derin Kırmızı */
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--bg-nav);
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Logo Konteyneri */
+        /* Logo Konteyneri */
+        .brand-container {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            position: relative;
+            min-width: 280px;
+        }
+
+        /* Orijinal Büyük (104px) Logo */
+        .brand-logo {
+            height: 104px;
+            width: auto;
+            object-fit: contain;
+            position: absolute;
+            left: 0;
+            top: 52%;
+            transform: translateY(-50%);
+            filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.15));
+            z-index: 1001;
+            pointer-events: none !important;
+        }
+
+        /* Ekranın En Sol Sınırına Sıfırlanmış & Tüm Logoyu Kaplayan 290px Hitbox */
+        .brand-hitbox {
+            position: absolute;
+            left: -16px;
+            top: 0;
+            width: 200px;
+            height: 70px;
+            z-index: 1002;
+            cursor: pointer;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 4px;
+        }
+
+        /* Mode & Language Toggle Buttons */
+        .theme-toggle,
+        .lang-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .theme-toggle:hover,
+        .lang-toggle:hover {
+            border-color: var(--primary-color);
+        }
+
+        /* İletişim İkonu */
+        .contact-wrap {
+            position: relative;
+        }
+
+        .contact-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .contact-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        .contact-btn svg rect,
+        .contact-btn svg path {
+            stroke: var(--text-main);
+        }
+
+        .contact-btn:hover svg rect,
+        .contact-btn:hover svg path {
+            stroke: var(--primary-color);
+        }
+
+        .contact-dropdown {
+            display: none;
+            position: absolute;
+            top: 48px;
+            right: 0;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 250px;
+            padding: 18px;
+            z-index: 1002;
+        }
+
+        .contact-dropdown.open {
+            display: block;
+        }
+
+        .contact-dropdown h4 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .contact-dropdown .c-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 12px;
+        }
+
+        .contact-dropdown .c-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-dropdown .c-label {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .contact-dropdown .c-value {
+            font-size: 14px;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .contact-dropdown .c-value a {
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .contact-dropdown .c-value a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .footer-icon {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .footer-text a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--bg-hero);
+            padding: 90px 20px 70px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            text-shadow: 0px 2px 8px rgba(255, 77, 77, 0.5);
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin: 0 auto 25px auto;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 12px 28px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            display: inline-block;
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(217, 4, 41, 0.35);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        /* Content & Cards */
+        .container {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 40px;
+            font-weight: 700;
+            color: var(--text-main);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-color);
+        }
+
+        .card h3 {
+            font-size: 19px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            text-shadow: 0 0 8px rgba(255, 77, 77, 0.4);
+        }
+
+        .card p {
+            font-size: 13.5px;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-nav);
+            border-top: 2px solid var(--border-color);
+            padding: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 80px;
+        }
+
+        @media (max-width: 900px) {
+            .brand-logo {
+                left: 0;
+                height: 40px;
+                position: static;
+                transform: none;
+            }
+
+            .nav-links a {
+                margin-left: 12px;
+                font-size: 12.5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="brand-container">
+            <img src="assets/img/logos.png" alt="Vespera Logo" class="brand-logo">
+            <a href="https://www.vesperaindustries.com/" class="brand-hitbox" aria-label="Ana Sayfa"></a>
+        </div>
+
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="/" class="active" data-i18n="nav_home">Ana Sayfa</a>
+                <a href="/sirketler" data-i18n="nav_companies">Şirketler</a>
+                <a href="/arge" data-i18n="nav_rnd">AR-GE</a>
+            </div>
+
+            <div class="contact-wrap">
+                <button type="button" class="contact-btn" onclick="toggleContact()" id="contactBtn"
+                    aria-label="İletişim">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+                        <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke-width="2" />
+                        <path d="M2 6l10 7L22 6" fill="none" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <div class="contact-dropdown" id="contactDropdown">
+                    <h4 data-i18n="contact_title">İletişim</h4>
+                    <div class="c-row">
+                        <span class="c-label" data-i18n="contact_email_label">E-posta</span>
+                        <span class="c-value"><a
+                                href="mailto:contact@vesperaindustries.com">contact@vesperaindustries.com</a></span>
+                    </div>
+                    <div class="c-row">
+                        <span class="c-label" data-i18n="contact_phone_label">Telefon</span>
+                        <span class="c-value"><a href="tel:+900000000000">+90 000 000 00 00</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="lang-toggle" onclick="toggleLanguage()" id="langBtn">🌐 EN</button>
+            <button type="button" class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light Mode</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1 data-i18n="hero_title">Geleceğin Teknolojik ve Lojistik Altyapısı</h1>
+        <p data-i18n="hero_desc">Yazılım mimarileri, siber güvenlik, interaktif teknolojiler ve küresel filo
+            lojistiğinde yüksek standartlı kurumsal çözümler.</p>
+        <a href="https://github.com/orgs/Vespera-Industries" class="btn-primary" target="_blank"
+            data-i18n="hero_btn">GitHub Portalını İncele</a>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title" data-i18n="group_companies">Grup Şirketlerimiz</h2>
+
+        <div class="grid-4">
+            <div class="card">
+                <h3>Vespera Core</h3>
+                <p data-i18n="core_desc">Ölçeklenebilir yazılım mimarileri, API servisleri ve çekirdek sistem AR-GE
+                    çalışmaları.</p>
+            </div>
+
+            <div class="card">
+                <h3>Vespera Games</h3>
+                <p data-i18n="games_desc">Yeni nesil oyun deneyimleri, görsel teknolojiler ve interaktif grafik motoru
+                    araçları.</p>
+            </div>
+
+            <div class="card">
+                <h3>VISS</h3>
+                <p data-i18n="viss_desc">Siber istihbarat, ağ güvenliği, tehdit analizi ve kurumsal savunma çözümleri.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>VLFC</h3>
+                <p data-i18n="vlfc_desc">Akıllı filo yönetimi, rota optimizasyonu ve Avrupa hattı lojistik
+                    operasyonları.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <img src="assets/img/miniicon.png" alt="Vespera Icon" class="footer-icon">
+            <div class="footer-text">
+                <p data-i18n="footer_copy">&copy; 2026 Vespera Industries. Tüm Hakları Saklıdır.</p>
+                <p><span data-i18n="footer_hosted">Teknoloji Portalımız</span> <a
+                        href="https://github.com/orgs/Vespera-Industries" target="_blank"
+                        data-i18n="footer_github">GitHub Organizasyonu</a> <span data-i18n="footer_hosted_end">üzerinde
+                        barındırılmaktadır.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            tr: {
+                nav_home: "Ana Sayfa",
+                nav_companies: "Şirketler",
+                nav_rnd: "AR-GE",
+                hero_title: "Geleceğin Teknolojik ve Lojistik Altyapısı",
+                hero_desc: "Yazılım mimarileri, siber güvenlik, interaktif teknolojiler ve küresel filo lojistiğinde yüksek standartlı kurumsal çözümler.",
+                hero_btn: "GitHub Portalını İncele",
+                group_companies: "Grup Şirketlerimiz",
+                core_desc: "Ölçeklenebilir yazılım mimarileri, API servisleri ve çekirdek sistem AR-GE çalışmaları.",
+                games_desc: "Yeni nesil oyun deneyimleri, görsel teknolojiler ve interaktif grafik motoru araçları.",
+                viss_desc: "Siber istihbarat, ağ güvenliği, tehdit analizi ve kurumsal savunma çözümleri.",
+                vlfc_desc: "Akıllı filo yönetimi, rota optimizasyonu ve Avrupa hattı lojistik operasyonları.",
+                footer_copy: "© 2026 Vespera Industries. Tüm Hakları Saklıdır.",
+                footer_hosted: "Teknoloji Portalımız",
+                footer_github: "GitHub Organizasyonu",
+                footer_hosted_end: "üzerinde barındırılmaktadır.",
+                contact_title: "İletişim",
+                contact_email_label: "E-posta",
+                contact_phone_label: "Telefon",
+                lang_btn: "🌐 EN",
+                theme_light: "☀️ Light Mode",
+                theme_dark: "🌙 Dark Mode"
+            },
+            en: {
+                nav_home: "Home",
+                nav_companies: "Companies",
+                nav_rnd: "R&D",
+                hero_title: "Technological and Logistics Infrastructure of the Future",
+                hero_desc: "High-standard corporate solutions in software architecture, cybersecurity, interactive technologies, and global fleet logistics.",
+                hero_btn: "Explore GitHub Portal",
+                group_companies: "Our Group Companies",
+                core_desc: "Scalable software architectures, API services, and core system R&D studies.",
+                games_desc: "Next-generation gaming experiences, visual technologies, and interactive engine tools.",
+                viss_desc: "Cyber intelligence, network security, threat analysis, and enterprise defense solutions.",
+                vlfc_desc: "Smart fleet management, route optimization, and European line logistics operations.",
+                footer_copy: "© 2026 Vespera Industries. All Rights Reserved.",
+                footer_hosted: "Our Technology Portal is hosted on our",
+                footer_github: "GitHub Organization",
+                footer_hosted_end: ".",
+                contact_title: "Contact",
+                contact_email_label: "Email",
+                contact_phone_label: "Phone",
+                lang_btn: "🌐 TR",
+                theme_light: "☀️ Light Mode",
+                theme_dark: "🌙 Dark Mode"
+            }
+        };
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            localStorage.setItem('vespera-lang', lang);
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            const langBtn = document.getElementById('langBtn');
+            if (langBtn) {
+                langBtn.textContent = translations[lang].lang_btn;
+            }
+        }
+
+        function toggleLanguage() {
+            const currentLang = localStorage.getItem('vespera-lang') || 'tr';
+            const newLang = currentLang === 'tr' ? 'en' : 'tr';
+            setLanguage(newLang);
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('themeBtn');
+            const currentLang = localStorage.getItem('vespera-lang') || 'tr';
+
+            if (html.getAttribute('data-theme') === 'light') {
+                html.removeAttribute('data-theme');
+                btn.innerHTML = translations[currentLang].theme_light;
+                localStorage.setItem('vespera-theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                btn.innerHTML = translations[currentLang].theme_dark;
+                localStorage.setItem('vespera-theme', 'light');
+            }
+        }
+
+        function toggleContact() {
+            document.getElementById('contactDropdown').classList.toggle('open');
+        }
+
+        document.addEventListener('click', function (e) {
+            const wrap = document.querySelector('.contact-wrap');
+            if (wrap && !wrap.contains(e.target)) {
+                document.getElementById('contactDropdown').classList.remove('open');
+            }
+        });
+
+        // Sayfa yüklendiğinde dil ve buton metinlerini ayarla (tema zaten <head>'te uygulandı)
+        (function () {
+            const savedTheme = localStorage.getItem('vespera-theme');
+            const savedLang = localStorage.getItem('vespera-lang') || 'tr';
+
+            document.addEventListener('DOMContentLoaded', function () {
+                setLanguage(savedLang);
+
+                const themeBtn = document.getElementById('themeBtn');
+                if (themeBtn) {
+                    themeBtn.innerHTML = savedTheme === 'light'
+                        ? translations[savedLang].theme_dark
+                        : translations[savedLang].theme_light;
+                }
+            });
+        })();
+    </script>
+
+    <script src="assets/js/auth.js"></script>
+    <script type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496"
+        integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ=="
+        data-cf-beacon='{"version":"2024.11.0","token":"94c079f4e46b4f23a2dbd5d25f38bf82","r":1}'
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

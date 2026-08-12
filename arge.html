@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR-GE | Vespera Industries</title>
+    <meta name="google-site-verification" content="gRdOL5yG5Cpfkg6TqzwmdI74Hof5dh2c1cBEHOhXfYk" />
+    <script type="application/ld+json">
+    {
+  	"@context": "https://schema.org",
+  	"@type": "Organization",
+  	"name": "Vespera Industries",
+  	"url": "https://vesperaindustries.com",
+  	"logo": "https://vesperaindustries.com/logos.png",
+  	"sameAs": [
+    	"https://github.com/orgs/Vespera-Industries"
+    ],
+  	"contactPoint": {
+    	"@type": "ContactPoint",
+    	"email": "contact@vesperaindustries.com",
+    	"contactType": "customer service",
+    	"availableLanguage": ["Turkish", "English"]
+    },
+  	"description": "Yazılım mimarileri, siber güvenlik, interaktif teknolojiler ve küresel filo lojistiğinde yüksek standartlı kurumsal çözümler."
+    }
+    </script>
+    <link rel="icon" type="image/png" href="assets/img/miniiconsmaller.png">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    <script>
+        (function() {
+            if (localStorage.getItem('vespera-theme') === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        :root {
+            --bg-body: #0d1117;
+            --bg-nav: #161b22;
+            --bg-hero: #161b22;
+            --bg-card: #21262d;
+            --bg-card-alt: #1c2128;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --border-color: #30363d;
+            --primary-color: #ff4d4d;
+            --shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] {
+            --bg-body: #d8dce2;
+            --bg-nav: #e8ebf0;
+            --bg-hero: #cdd3dc;
+            --bg-card: #e8ebf0;
+            --bg-card-alt: #dfe3e9;
+            --text-main: #111827;
+            --text-muted: #374151;
+            --border-color: #b0b8c4;
+            --primary-color: #d90429;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: var(--bg-nav);
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            position: relative;
+            min-width: 280px;
+        }
+
+        .brand-logo {
+            height: 104px;
+            width: auto;
+            object-fit: contain;
+            position: absolute;
+            left: 0;
+            top: 52%;
+            transform: translateY(-50%);
+            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.15));
+            z-index: 1001;
+            pointer-events: none !important;
+        }
+
+        .brand-hitbox {
+            position: absolute;
+            left: -16px;
+            top: 0;
+            width: 200px;
+            height: 70px;
+            z-index: 1002;
+            cursor: pointer;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .theme-toggle, .lang-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .theme-toggle:hover, .lang-toggle:hover {
+            border-color: var(--primary-color);
+        }
+
+        .contact-wrap {
+            position: relative;
+        }
+
+        .contact-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .contact-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        .contact-btn svg rect,
+        .contact-btn svg path {
+            stroke: var(--text-main);
+        }
+
+        .contact-btn:hover svg rect,
+        .contact-btn:hover svg path {
+            stroke: var(--primary-color);
+        }
+
+        .contact-dropdown {
+            display: none;
+            position: absolute;
+            top: 48px;
+            right: 0;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 250px;
+            padding: 18px;
+            z-index: 1002;
+        }
+
+        .contact-dropdown.open {
+            display: block;
+        }
+
+        .contact-dropdown h4 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .contact-dropdown .c-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 12px;
+        }
+
+        .contact-dropdown .c-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-dropdown .c-label {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .contact-dropdown .c-value {
+            font-size: 14px;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .contact-dropdown .c-value a {
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .contact-dropdown .c-value a:hover {
+            color: var(--primary-color);
+        }
+
+        .page-hero {
+            background-color: var(--bg-hero);
+            padding: 60px 20px 50px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .breadcrumb {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+
+        .page-hero h1 {
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-shadow: 0px 2px 8px rgba(255, 77, 77, 0.5);
+        }
+
+        .page-hero p {
+            font-size: 16px;
+            color: var(--text-muted);
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .section {
+            max-width: 1000px;
+            margin: 70px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .section-sub {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .research-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .research-row {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 22px 26px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .research-row .r-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .research-row .r-company {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary-color);
+            background-color: var(--bg-card-alt);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .research-row p {
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .status-pill {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .status-pill.researching {
+            color: #58a6ff;
+            border-color: rgba(88, 166, 255, 0.4);
+        }
+
+        .status-pill.prototype {
+            color: #d29922;
+            border-color: rgba(210, 153, 34, 0.4);
+        }
+
+        .status-pill.planned {
+            color: var(--text-muted);
+        }
+
+        [data-theme="light"] .status-pill.researching {
+            color: #0969da;
+            border-color: rgba(9, 105, 218, 0.35);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+
+        .repo-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .repo-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-color);
+        }
+
+        .repo-card .repo-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .repo-card .repo-top svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .repo-card h4 {
+            font-size: 16px;
+            color: var(--primary-color);
+        }
+
+        .repo-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            flex-grow: 1;
+        }
+
+        .repo-card a.repo-link {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--text-main);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 7px 12px;
+            text-align: center;
+            margin-top: 6px;
+        }
+
+        .repo-card a.repo-link:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        footer {
+            background-color: var(--bg-nav);
+            border-top: 2px solid var(--border-color);
+            padding: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .footer-icon {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .footer-text a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        @media (max-width: 640px) {
+            .brand-logo {
+                left: 0;
+                height: 40px;
+                position: static;
+                transform: none;
+            }
+            .nav-links a {
+                margin-left: 12px;
+                font-size: 12.5px;
+            }
+            .research-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="brand-container">
+            <img src="assets/img/logos.png" alt="Vespera Logo" class="brand-logo">
+            <a href="https://www.vesperaindustries.com/" class="brand-hitbox" aria-label="Ana Sayfa"></a>
+        </div>
+
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="/" data-i18n="nav_home">Ana Sayfa</a>
+                <a href="/sirketler" data-i18n="nav_companies">Şirketler</a>
+                <a href="/arge" class="active" data-i18n="nav_rnd">AR-GE</a>
+            </div>
+
+            <div class="contact-wrap">
+                <button class="contact-btn" onclick="toggleContact()" id="contactBtn" aria-label="İletişim">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+                        <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke-width="2"/>
+                        <path d="M2 6l10 7L22 6" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="contact-dropdown" id="contactDropdown">
+                    <h4 data-i18n="contact_title">İletişim</h4>
+                    <div class="c-row">
+                        <span class="c-label" data-i18n="contact_email_label">E-posta</span>
+                        <span class="c-value"><a href="mailto:contact@vesperaindustries.com">contact@vesperaindustries.com</a></span>
+                    </div>
+                    <div class="c-row">
+                        <span class="c-label" data-i18n="contact_phone_label">Telefon</span>
+                        <span class="c-value"><a href="tel:+900000000000">+90 000 000 00 00</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">🌐 EN</button>
+            <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️ Light Mode</button>
+        </div>
+    </nav>
+
+    <header class="page-hero">
+        <div class="breadcrumb"><a href="/" data-i18n="bc_home">Ana Sayfa</a> / <span data-i18n="bc_rnd">AR-GE</span></div>
+        <h1 data-i18n="page_title">Araştırma &amp; Geliştirme</h1>
+        <p data-i18n="page_subtitle">Vespera Industries olarak henüz yolun başındayız. Bu sayfa, üzerinde çalıştığımız araştırma alanlarını ve açık kaynak projelerimizi şeffaf şekilde paylaştığımız yer.</p>
+    </header>
+
+    <main>
+        <section class="section">
+            <h2 class="section-title" data-i18n="sec1_title">Araştırma Alanlarımız</h2>
+            <p class="section-sub" data-i18n="sec1_sub">Her grup şirketimizin şu an üzerinde çalıştığı ya da planladığı konular.</p>
+
+            <div class="research-list">
+                <div class="research-row">
+                    <div class="r-left">
+                        <span class="r-company">VLFC</span>
+                        <p data-i18n="res_vlfc">Gönderi takibi ve rota optimizasyonu için temel sistem mimarisi üzerine çalışıyoruz.</p>
+                    </div>
+                    <span class="status-pill prototype" data-i18n="status_prototype">Prototip Aşamasında</span>
+                </div>
+
+                <div class="research-row">
+                    <div class="r-left">
+                        <span class="r-company">Vespera Core</span>
+                        <p data-i18n="res_core">Grup şirketlerinin ortak kullanacağı API ve veri katmanı standartlarını araştırıyoruz.</p>
+                    </div>
+                    <span class="status-pill researching" data-i18n="status_researching">Araştırılıyor</span>
+                </div>
+
+                <div class="research-row">
+                    <div class="r-left">
+                        <span class="r-company">VISS</span>
+                        <p data-i18n="res_viss">Temel ağ güvenliği prensipleri ve kurumsal savunma yaklaşımlarını inceliyoruz.</p>
+                    </div>
+                    <span class="status-pill planned" data-i18n="status_planned">Planlanıyor</span>
+                </div>
+
+                <div class="research-row">
+                    <div class="r-left">
+                        <span class="r-company">Vespera Games</span>
+                        <p data-i18n="res_games">İnteraktif grafik motoru araçları ve oyun mimarisi konusunda ön araştırma yapıyoruz.</p>
+                    </div>
+                    <span class="status-pill planned" data-i18n="status_planned">Planlanıyor</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title" data-i18n="sec2_title">Açık Kaynak Projelerimiz</h2>
+            <p class="section-sub" data-i18n="sec2_sub">GitHub organizasyonumuzda paylaştığımız, herkese açık geliştirme sürecimiz.</p>
+
+            <div class="grid-3">
+                <div class="repo-card">
+                    <div class="repo-top">
+                        <svg viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1H4.5a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8Z"/></svg>
+                        <h4>vespera-logistics</h4>
+                    </div>
+                    <p data-i18n="repo1_desc">Lojistik gönderi takip sistemimizin ilk C++ prototipi. Temel sınıf mimarisi ve modern C++17 pratikleri üzerine öğrenme amaçlı geliştirildi.</p>
+                    <a class="repo-link" href="https://github.com/orgs/Vespera-Industries" target="_blank" data-i18n="repo_view">GitHub'da Görüntüle →</a>
+                </div>
+
+                <div class="repo-card">
+                    <div class="repo-top">
+                        <svg viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1H4.5a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8Z"/></svg>
+                        <h4>vespera-industries.com</h4>
+                    </div>
+                    <p data-i18n="repo2_desc">Kurumsal web sitemizin kaynak kodu. Statik HTML/CSS ile geliştirilen, dark/light tema destekli portal.</p>
+                    <a class="repo-link" href="https://github.com/orgs/Vespera-Industries" target="_blank" data-i18n="repo_view">GitHub'da Görüntüle →</a>
+                </div>
+
+                <div class="repo-card">
+                    <div class="repo-top">
+                        <svg viewBox="0 0 16 16"><path d="M8 0a8 8 0 0 1 2.53 15.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 8 0Z"/></svg>
+                        <h4 data-i18n="repo3_title">Daha fazlası yolda</h4>
+                    </div>
+                    <p data-i18n="repo3_desc">Yeni öğrenme projelerimiz ve deneylerimiz düzenli olarak GitHub organizasyonumuza ekleniyor.</p>
+                    <a class="repo-link" href="https://github.com/orgs/Vespera-Industries" target="_blank" data-i18n="repo3_link">Organizasyonu Takip Et →</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <img src="assets/img/miniicon.png" alt="Vespera Icon" class="footer-icon">
+            <div class="footer-text">
+                <p data-i18n="footer_copy">&copy; 2026 Vespera Industries. Tüm Hakları Saklıdır.</p>
+                <p><span data-i18n="footer_hosted">Teknoloji Portalımız</span> <a href="https://github.com/orgs/Vespera-Industries" target="_blank" data-i18n="footer_github">GitHub Organizasyonu</a> <span data-i18n="footer_hosted_end">üzerinde barındırılmaktadır.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            tr: {
+                nav_home: "Ana Sayfa",
+                nav_companies: "Şirketler",
+                nav_rnd: "AR-GE",
+                bc_home: "Ana Sayfa",
+                bc_rnd: "AR-GE",
+                page_title: "Araştırma & Geliştirme",
+                page_subtitle: "Vespera Industries olarak henüz yolun başındayız. Bu sayfa, üzerinde çalıştığımız araştırma alanlarını ve açık kaynak projelerimizi şeffaf şekilde paylaştığımız yer.",
+                sec1_title: "Araştırma Alanlarımız",
+                sec1_sub: "Her grup şirketimizin şu an üzerinde çalıştığı ya da planladığı konular.",
+                res_vlfc: "Gönderi takibi ve rota optimizasyonu için temel sistem mimarisi üzerine çalışıyoruz.",
+                res_core: "Grup şirketlerinin ortak kullanacağı API ve veri katmanı standartlarını araştırıyoruz.",
+                res_viss: "Temel ağ güvenliği prensipleri ve kurumsal savunma yaklaşımlarını inceliyoruz.",
+                res_games: "İnteraktif grafik motoru araçları ve oyun mimarisi konusunda ön araştırma yapıyoruz.",
+                status_prototype: "Prototip Aşamasında",
+                status_researching: "Araştırılıyor",
+                status_planned: "Planlanıyor",
+                sec2_title: "Açık Kaynak Projelerimiz",
+                sec2_sub: "GitHub organizasyonumuzda paylaştığımız, herkese açık geliştirme sürecimiz.",
+                repo1_desc: "Lojistik gönderi takip sistemimizin ilk C++ prototipi. Temel sınıf mimarisi ve modern C++17 pratikleri üzerine öğrenme amaçlı geliştirildi.",
+                repo2_desc: "Kurumsal web sitemizin kaynak kodu. Statik HTML/CSS ile geliştirilen, dark/light tema destekli portal.",
+                repo3_title: "Daha fazlası yolda",
+                repo3_desc: "Yeni öğrenme projelerimiz ve deneylerimiz düzenli olarak GitHub organizasyonumuza ekleniyor.",
+                repo_view: "GitHub'da Görüntüle →",
+                repo3_link: "Organizasyonu Takip Et →",
+                footer_copy: "© 2026 Vespera Industries. Tüm Hakları Saklıdır.",
+                footer_hosted: "Teknoloji Portalımız",
+                footer_github: "GitHub Organizasyonu",
+                footer_hosted_end: "üzerinde barındırılmaktadır.",
+                contact_title: "İletişim",
+                contact_email_label: "E-posta",
+                contact_phone_label: "Telefon",
+                lang_btn: "🌐 EN",
+                theme_light: "☀️ Light Mode",
+                theme_dark: "🌙 Dark Mode"
+            },
+            en: {
+                nav_home: "Home",
+                nav_companies: "Companies",
+                nav_rnd: "R&D",
+                bc_home: "Home",
+                bc_rnd: "R&D",
+                page_title: "Research & Development",
+                page_subtitle: "As Vespera Industries, we are just at the beginning. This page is where we transparently share the research fields we are working on and our open-source projects.",
+                sec1_title: "Our Research Areas",
+                sec1_sub: "Topics currently being worked on or planned by each of our group companies.",
+                res_vlfc: "We are working on the core system architecture for shipment tracking and route optimization.",
+                res_core: "We are researching API and data layer standards to be used across all group companies.",
+                res_viss: "We are examining basic network security principles and enterprise defense approaches.",
+                res_games: "We are conducting preliminary research on interactive engine tools and game architecture.",
+                status_prototype: "Prototype Stage",
+                status_researching: "Researching",
+                status_planned: "Planned",
+                sec2_title: "Our Open Source Projects",
+                sec2_sub: "Our public development process shared on our GitHub organization.",
+                repo1_desc: "The initial C++ prototype of our logistics shipment tracking system. Built for learning fundamental class architecture and modern C++17 practices.",
+                repo2_desc: "The source code of our corporate website. Static HTML/CSS portal supporting dark/light themes.",
+                repo3_title: "More on the way",
+                repo3_desc: "Our new learning projects and experiments are regularly added to our GitHub organization.",
+                repo_view: "View on GitHub →",
+                repo3_link: "Follow Organization →",
+                footer_copy: "© 2026 Vespera Industries. All Rights Reserved.",
+                footer_hosted: "Our Technology Portal is hosted on our",
+                footer_github: "GitHub Organization",
+                footer_hosted_end: ".",
+                contact_title: "Contact",
+                contact_email_label: "Email",
+                contact_phone_label: "Phone",
+                lang_btn: "🌐 TR",
+                theme_light: "☀️ Light Mode",
+                theme_dark: "🌙 Dark Mode"
+            }
+        };
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            localStorage.setItem('vespera-lang', lang);
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            const langBtn = document.getElementById('langBtn');
+            if (langBtn) {
+                langBtn.textContent = translations[lang].lang_btn;
+            }
+        }
+
+        function toggleLanguage() {
+            const currentLang = localStorage.getItem('vespera-lang') || 'tr';
+            const newLang = currentLang === 'tr' ? 'en' : 'tr';
+            setLanguage(newLang);
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('themeBtn');
+            const currentLang = localStorage.getItem('vespera-lang') || 'tr';
+
+            if (html.getAttribute('data-theme') === 'light') {
+                html.removeAttribute('data-theme');
+                btn.innerHTML = translations[currentLang].theme_light;
+                localStorage.setItem('vespera-theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                btn.innerHTML = translations[currentLang].theme_dark;
+                localStorage.setItem('vespera-theme', 'light');
+            }
+        }
+
+        function toggleContact() {
+            document.getElementById('contactDropdown').classList.toggle('open');
+        }
+
+        document.addEventListener('click', function(e) {
+            const wrap = document.querySelector('.contact-wrap');
+            if (wrap && !wrap.contains(e.target)) {
+                document.getElementById('contactDropdown').classList.remove('open');
+            }
+        });
+
+        (function() {
+            const savedTheme = localStorage.getItem('vespera-theme');
+            const savedLang = localStorage.getItem('vespera-lang') || 'tr';
+
+            document.addEventListener('DOMContentLoaded', function() {
+                setLanguage(savedLang);
+
+                const themeBtn = document.getElementById('themeBtn');
+                if (themeBtn) {
+                    themeBtn.innerHTML = savedTheme === 'light'
+                        ? translations[savedLang].theme_dark
+                        : translations[savedLang].theme_light;
+                }
+            });
+        })();
+    </script>
+
+    <script src="assets/js/auth.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"94c079f4e46b4f23a2dbd5d25f38bf82","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>
